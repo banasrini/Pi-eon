@@ -9,6 +9,7 @@ channel = 'tempeon'
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
+#Make sure to include the device number that your sensor shows when connected to the Pi
 temp_sensor = '/sys/bus/w1/devices/28-000006b4fef4/w1_slave'
 
 def callback(message):
@@ -29,7 +30,9 @@ def read_temp():
     if temp_output != -1:
         temp_string = lines[1].strip()[temp_output+2:]
         temp_c = float(temp_string) / 1000.0
-        temp_f = temp_c * 9.0 / 5.0 + 32.0 
+        temp_f = temp_c * 9.0 / 5.0 + 32.0
+        
+        #published in this fashion to comply with Eon
         pubnub.publish('tempeon', {
             'message': {
                 'columns': [
