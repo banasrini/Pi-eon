@@ -9,6 +9,7 @@ channel = 'tempeon'
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
+
 #Make sure to include the device number that your sensor shows when connected to the Pi
 temp_sensor = '/sys/bus/w1/devices/28-000006b4fef4/w1_slave'
 
@@ -36,8 +37,8 @@ def read_temp():
         pubnub.publish('tempeon', {
                 'columns': [
                     ['x', time.time()],
-                    ['temp', temp_c],
-                    ['tempf', temp_f]
+                    ['temperature_celcius', temp_c],
+                    ['temperature_farenheit', temp_f]
                     ]
                 
             })
