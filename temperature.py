@@ -34,13 +34,12 @@ def read_temp():
         
         #published in this fashion to comply with Eon
         pubnub.publish('tempeon', {
-            'message': {
                 'columns': [
                     ['x', time.time()],
                     ['temp', temp_c],
                     ['tempf', temp_f]
                     ]
-                }
+                
             })
         return temp_c, temp_f
 
