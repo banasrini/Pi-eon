@@ -32,19 +32,15 @@ Lets quickly go through the python script to see how to stream realtime temperat
 
 
 '''
-# -*- coding: utf-8 -*-
 import os
 import time
 import sys
 from Pubnub import Pubnub
-
 pubnub = Pubnub(publish_key='demo', subscribe_key='demo')
 channel = 'tempeon'
 
 os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
-
-#Make sure to include the device number that your sensor shows when connected to the Pi
 temp_sensor = '/sys/bus/w1/devices/28-000006b4fef4/w1_slave'
 
 def callback(message):
@@ -77,11 +73,9 @@ def read_temp():
                 
             })
         return temp_c, temp_f
-
 while True:
     print(read_temp())
     time.sleep(1)
-
 '''
 ### What is Eon, ease of use
 copy paste code
