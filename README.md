@@ -18,7 +18,10 @@ Lets not waste any more time and jump straight into it.
 #### WHat will you need?
 
 1.  The DS18B20+ : It has three pins: GND, Data (DQ), and 3.3V power line (VDD). 
-2.  7 jumper wires (2 red, 2 black, 4 yellow)
+![image](images/DSB1820+.png)
+
+2.
+  7 jumper wires (2 red, 2 black, 4 yellow)
 3.  Breadboard and 
 4.  4.7kΩ (or 10kΩ) resistor
 5.  Raspberry Pi 2 loaded with the Raspbian OS. 
@@ -43,20 +46,20 @@ Lets quickly go through the python script to see how to stream realtime temperat
 
 
 
-1. Import the necessary libraries, and also PubNub to be able to send and receive messages to/from the Pi to any other device. 
+Import the necessary libraries, and also PubNub to be able to send and receive messages to/from the Pi to any other device. 
 
 ####Installing PubNub
 
 
 Open LXTerminal, and download and install the followings:
 
-Install Python:
+**Install Python:**
 `pi@raspberrypi ~$ sudo apt-get install python-dev`
 
-Install pip:
+**Install pip:**
 `pi@raspberrypi ~$ sudo apt-get install python-pip`
 
-install PubNub:
+**install PubNub:**
 `pi@raspberrypi ~$ sudo pip install pubnub`
 
 For an in depth introduction to the Pi and PubNub, check this [blog](http://www.pubnub.com/blog/internet-of-things-101-getting-started-w-raspberry-pi/) by [Tomomi](ADD LINK TO HER BIO HERE)
@@ -75,17 +78,44 @@ Once you have installed PubNub on the Pi, you can use it by setting a pub/sub ke
 ```
 
 
-2. 
+#### Understanding modprobe
+
+The Raspberry Pi comes equipped with a range of drivers for interfacing. However, it’s not feasible to load every driver when the system boots, as it will increase the boot time significantly and use a considerable amount of system resources for redundant processes. These drivers are therefore stored as loadable modules and the command modprobe is employed to boot them into the Linux kernel when they’re required. The following two modprobe commands load the 1-Wire and thermometer drivers on GPIO 4.
+
+```
+	os.system('modprobe w1-gpio')
+	os.system('modprobe w1-therm')
+```
+
+The sensor is identified by a unique serial number present in your device driver. In this case, the device is registered as 28-000006b4fef4. You need to replace this serial number with your own. This can be accessed by typing 
+
+`cd /sys/bus/w1/devices/`
+
+The sensor then writes it readings into a file provided by the following path. In our code, we access it using a variable to store the path to a file called tempstore 
+
+```
+	temp_sensor = '/sys/bus/w1/devices/28-000006b4fef4/tempstore'	
+```
+
 
 ```
 
-	os.system('modprobe w1-gpio')
-	os.system('modprobe w1-therm')
-	temp_sensor = '/sys/bus/w1/devices/28-000006b4fef4/w1_slave'
-
 	def callback(message):
    		print(message)
+```		
 
+The sensor sends out readings to the tempstore file in a very specfic fashion : 
+```
+72 01 4b 46 7f ff 0e 10 57 : crc=57 YES
+
+72 01 4b 46 7f ff 0e 10 57 t=23125   
+```
+
+Where the last value `t=23125` is the temperature value. A decimal point has to be placed after the first two digits.
+
+The following code just manipulates the above two lines to display just the temperature value in a more readable fashion. We then convert it to faranheit as well. 
+
+```
 	def temp_raw():
     	f = open(temp_sensor, 'r')
     	lines = f.readlines()
@@ -102,8 +132,12 @@ Once you have installed PubNub on the Pi, you can use it by setting a pub/sub ke
         	temp_string = lines[1].strip()[temp_output+2:]
         	temp_c = float(temp_string) / 1000.0
         	temp_f = temp_c * 9.0 / 5.0 + 32.0
-        
-        	#published in this fashion to comply with Eon
+```
+
+#### The exciting part of the project : 
+
+
+```     
         	pubnub.publish('tempeon', {
                 	'columns': [
                     	['x', time.time()],
@@ -112,7 +146,9 @@ Once you have installed PubNub on the Pi, you can use it by setting a pub/sub ke
                     	]
                 
             	})
+```
         	return temp_c, temp_f
+    
 
 	while True:
     	print(read_temp())

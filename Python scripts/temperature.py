@@ -11,7 +11,7 @@ os.system('modprobe w1-gpio')
 os.system('modprobe w1-therm')
 
 #Make sure to include the device number that your sensor shows when connected to the Pi
-temp_sensor = '/sys/bus/w1/devices/28-000006b4fef4/w1_slave'
+temp_sensor = '/sys/bus/w1/devices/28-000006b4fef4/tempstore'
 
 def callback(message):
     print(message)
