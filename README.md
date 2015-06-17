@@ -6,7 +6,7 @@
 
 Not another blog with a Pi and a temperature-humidity sensor you think. But wait, this is different. This includes Eon, which gives you the power to view those sensor readings in a beautiful graph that updates itself in real time; from anywhere in the world, and just a few lines of code. Who doesnt love a great visualization notifying you in real time!!? Real time dashboards, its happening!
 
-#GIFS OF THE GRAPHS WITH THE SENSOR
+https://vine.co/u/1223075210341806080 - GIF
 
 There are 3 parts to this blog : 
 
