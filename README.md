@@ -198,4 +198,4 @@ Now you can collect data from countless devices and publish data in realtime to 
 You can find detailed documentation at [Project EON homepage](http://www.pubnub.com/blog/project-eon-open-source-javascript-framework-for-realtime-dashboard-charts-and-maps/) or [check out the Project EON GitHub repository](https://github.com/pubnub/eon). 
 
 
-GO EON"-ify" your next cool project. 
+Go EON"-ify" your next cool project. 
