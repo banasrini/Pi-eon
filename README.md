@@ -28,13 +28,13 @@ Connect the first pin on the left to 3.3V power, the second pin to your data inp
 
 #### What you will need
 
-1.  The DHT22 sensor
+1.The DHT22 sensor
 
 ![image](images/dht22.png)
-2.  3 jumper wires 
-3.  Breadboard  
-4.  4.7kΩ (or 10kΩ) resistor
-5.  Raspberry Pi 2 loaded with the Raspbian OS. 
+2.3 jumper wires 
+3.Breadboard  
+4.4.7kΩ (or 10kΩ) resistor
+5.Raspberry Pi 2 loaded with the Raspbian OS. 
 
 Set up the circuit according to the following figure: 
 
@@ -162,7 +162,6 @@ eon.chart({
 **hum-gauge.html:** I chose a gauge graph to represent the humidity values, and so the Eon script reflects this. You can choose various parameters like the min, max for the graph, the different thresholds and colors for each of them. 
 
 ```
-<script>
 	eon.chart({
 		channel: 'humeon',
   		generate: {
@@ -182,8 +181,7 @@ eon.chart({
     	}
   	}
 });
-    </script>
-    
+ 
 ```
 
 
@@ -200,4 +198,4 @@ Now you can collect data from countless devices and publish data in realtime to 
 You can find detailed documentation at [Project EON homepage](http://www.pubnub.com/blog/project-eon-open-source-javascript-framework-for-realtime-dashboard-charts-and-maps/) or [check out the Project EON GitHub repository](https://github.com/pubnub/eon). 
 
 
-GO EON"-ify"" your next cool project. 
+GO EON"-ify" your next cool project. 
