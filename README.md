@@ -86,7 +86,7 @@ First we import the libraries required for this project. We then initialize a Pu
 	import os
 	import time
 	import sys
-	from Pubnub import Pubnub
+	from pubnub import Pubnub
 	import Adafruit_DHT as dht
 	pubnub = Pubnub(publish_key='demo', subscribe_key='demo')
 ```
