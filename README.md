@@ -162,24 +162,24 @@ eon.chart({
 **hum-gauge.html:** I chose a gauge graph to represent the humidity values, and so the Eon script reflects this. You can choose various parameters like the min, max for the graph, the different thresholds and colors for each of them. 
 
 ```
-	eon.chart({
-		channel: 'humeon',
-  		generate: {
-    		bindto: '#chart',
-    		data: {
-      			type: 'gauge',
-    		},
-    		gauge: {
-      			min: 0,
-      			max: 100
-    		},
-    		color: {
-      			pattern: ['#FF0000', '#F6C600', '#60B044'],
-      			threshold: {
-        		values: [30, 60, 90]
-      		}
-    	}
-  	}
+eon.chart({
+	channel: 'humeon',
+  	generate: {
+    	bindto: '#chart',
+    	data: {
+     			type: 'gauge',
+    	},
+    	gauge: {
+      		min: 0,
+      		max: 100
+    	},
+    	color: {
+      		pattern: ['#FF0000', '#F6C600', '#60B044'],
+      		threshold: {
+        	values: [30, 60, 90]
+      	}
+    }
+  }
 });
  
 ```
